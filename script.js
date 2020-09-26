@@ -1,6 +1,10 @@
 var timerEl = document.querySelector("#timer");
 var quizSpaceEl = document.querySelector("#quizSpace");
 var startEl = document.querySelector("#start");
+var initialsFormEl = document.querySelector("#initials-form");
+
+// Counter to keep track of questions within quizArr
+var questionCounter = 0;
 
 // Questions and answers array 
 var quizArr = [
@@ -36,13 +40,13 @@ var quizArr = [
 
 ];
 
-// Timer established
-var secondsLeft = 0;
+// Timer established on screen
+var secondsLeft = 5;
 timerEl.textContent = secondsLeft + " seconds remaining";
 
 // Timer countdown function
 function setTime() {
-    var secondsLeft = 60;
+    // var secondsLeft = 5;
     var timerInterval = setInterval(function() {
         secondsLeft--;
         timerEl.textContent = secondsLeft + " seconds remaining";
@@ -54,7 +58,7 @@ function setTime() {
     }, 1000);
 }
 
-// Display first question 
+// Display questions one at a time 
 function displayQuestion (question) {
     console.log(question);
     
@@ -77,7 +81,7 @@ function displayQuestion (question) {
     choiceCEl.textContent=question.multipleChoice[2];
     choiceDEl.textContent=question.multipleChoice[3];
     
-    // Append quizPL p element to <div id="questions">
+    // Append quizPL p element to <div id="questions"> element
     quizSpaceEl.appendChild(quizPL);
 
     // Append multipleChoice list items element to quizPL p element
@@ -88,36 +92,37 @@ function displayQuestion (question) {
     choiceList.appendChild(choiceDEl);
 }
 
-// Game over function
+// Game over function when time runs out 
 function sendMessage() {
-    timerEl.textContent = "GAME OVER";
-    var initialsText = prompt("GAME OVER! Please enter your initials");
-    console.log(initialsText);
+    quizSpaceEl.classList.add("game-over");
+    quizSpaceEl.textContent = "GAME OVER";
+    // shows initials form to record score
+    initialsFormEl.style.display = "block";
 }
 
-// When start button is clicked, timer countdown starts, first question is displayed
+// When start button is clicked, timer countdown starts, questions are displayed one at a time
 startEl.addEventListener("click", function() {
     setTime();
     quizSpaceEl.textContent = "";
-    displayQuestion(quizArr[0]);
+    displayQuestion(quizArr[questionCounter]);
 })
 
-// When answer is clicked, next question will be displayed 
+// When answer is clicked, next question will be displayed, else the timer decrements 5 seconds
 document.addEventListener("click", function(event){
-    event.preventDefault();
+    var answerEl = quizArr[questionCounter].answer;
 
     if (event.target.matches("li")) {
         console.log(event.target.textContent);
-       if (event.target.textContent === quizArr[0].answer) {
-           console.log("that's right!");
-       } ;
+       if (event.target.textContent === answerEl) {
+            quizSpaceEl.textContent = "";
+            questionCounter++;
+            displayQuestion(quizArr[questionCounter]);
+       } 
     }
-
 })
 
 
 
-// Cards need to shuffle through as questions are answered
 // Indicates after question answered about whether it was correct or wrong
 // If a question is wrong, time is subtracted from the clock
   // time needs to subtract if a question is wrong ()=== false?)

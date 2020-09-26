@@ -9,7 +9,7 @@ main,
 h1 {
     text-align: center;
     margin: auto;
-    width: 30%;
+    width: 35%;
 }
 
 /* Instruction text size */
@@ -33,4 +33,17 @@ li {
     margin-bottom: 2rem;
     list-style-type: lower-alpha;
     font-size: 16px;
+}
+
+/* Shows if time has run out */
+.game-over {
+    margin-top: 50px;
+    font-size: 36px;
+}
+
+/* Initials form to record score, set up to show after the quiz ends */
+#initials-form {
+    margin-top: 50px;
+    text-align: center;
+    display: none;
 }
