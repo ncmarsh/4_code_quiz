@@ -1,5 +1,5 @@
 var timerEl = document.querySelector("#timer");
-var questionsEl = document.querySelector("#questions");
+var questionEl = document.querySelector("#quizSpace");
 var startEl = document.querySelector("#start");
 
 // Questions and answers array 
@@ -54,27 +54,34 @@ function setTime() {
 // Display first question 
 function displayQuestion (question) {
     console.log(question);
+    // Paragraph element for question display
+    var quizPL = document.createElement("p");
+
+    // Ordered list for choice display
+    var choiceList = document.createElement("ol");
+    var choiceAEl = document.createElement("li");
+    var choiceBEl = document.createElement("li");
+    var choiceCEl = document.createElement("li");
+    var choiceDEl = document.createElement("li");
     
-    var questionPL = document.createElement("p");
+    // Attached question text to quiz P element
+    quizPL.textContent=question.questionTitle;
 
-    // var answerALiEl = document.createElement("li");
-    // var answerBLiEl = document.createElement("li");
-    // var answerCLiEl = document.createElement("li");
-    // var answerDLiEl = document.createElement("li");
-    // var answerOl = document.createElement("ol");
+    // Attach choice text to list item element
+    choiceAEl.textContent=question.multipleChoice[0];
+    choiceBEl.textContent=question.multipleChoice[1];
+    choiceCEl.textContent=question.multipleChoice[2];
+    choiceDEl.textContent=question.multipleChoice[3];
+    
+    // Append quiz P element to <div id="questions">
+    questionEl.appendChild(quizPL);
 
-    questionPL.textContent=question.questionTitle;
-
-    // answerALiEl.setAttribute("class", "answer");
-    // answerBLiEl.setAttribute("class", "answer");
-    // answerCLiEl.setAttribute("class", "answer");
-    // answerDLiEl.setAttribute("class", "answer");
-
-    // answerOl.appendChild(answerALiEl);
-    // answerOl.appendChild(answerBLiEl);
-    // answerOl.appendChild(answerCLiEl);
-    // answerOl.appendChild(answerDLiEl);
-    questionsEl.appendChild(questionPL);
+    // Append answer list element to quiz P element
+    quizPL.appendChild(choiceList);
+    choiceList.appendChild(choiceAEl);
+    choiceList.appendChild(choiceBEl);
+    choiceList.appendChild(choiceCEl);
+    choiceList.appendChild(choiceDEl);
 }
 
 // When start button is clicked, timer countdown starts 
