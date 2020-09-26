@@ -4,8 +4,9 @@
     text-align: right;
 }
 
-/* Container with questions and start button */
-main {
+/* Center text for container with questions and start button and high scores page */
+main,
+h1 {
     text-align: center;
     margin: auto;
     width: 30%;

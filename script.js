@@ -5,25 +5,25 @@ var startEl = document.querySelector("#start");
 // Questions and answers array 
 var quizArr = [
     // Question 1
-    { questionTitle: "What language establishes a web page?",
+    { questionTitle: "Which language establishes a web page?",
       multipleChoice: ["CSS", "JavaScript", "HTML", "jQuery"],  
       answer: "HTML"
     },
 
     // Question 2
-    { questionTitle: "What language styles a web page?",
+    { questionTitle: "Which language styles a web page?",
     multipleChoice: ["JavaScript", "CSS", "HTML", "localStorage"],  
     answer: "CSS"
     },
 
     // Question 3
-    { questionTitle: "What language makes a web page interactive?",
+    { questionTitle: "Which language makes a web page interactive?",
     multipleChoice: ["HTML", "CSS", "JavaScript", "SQL"],  
     answer: "JavaScript"
     },
 
     // Question 4
-    { questionTitle: "What is considered an Event Listener?",
+    { questionTitle: "Which of these is considered an Event Listener?",
     multipleChoice: ["Mouse click", "Scrolling", "Key press", "All of the above"],  
     answer: "All of the above"
     },
@@ -88,7 +88,14 @@ function displayQuestion (question) {
     choiceList.appendChild(choiceDEl);
 }
 
-// When start button is clicked, timer countdown starts 
+// Game over function
+function sendMessage() {
+    timerEl.textContent = "GAME OVER";
+    var initialsText = prompt("GAME OVER! Please enter your initials");
+    console.log(initialsText);
+}
+
+// When start button is clicked, timer countdown starts, first question is displayed
 startEl.addEventListener("click", function() {
     setTime();
     quizSpaceEl.textContent = "";
@@ -97,25 +104,16 @@ startEl.addEventListener("click", function() {
 
 // When answer is clicked, next question will be displayed 
 document.addEventListener("click", function(event){
-    console.log(event.target);
-})
+    event.preventDefault();
 
-window.onload = function () {
-    list = document.getElementsByClassName("answer");
-    for (var i = 0; i < list.length; i++) {
-      list[i].addEventListener("click", function (e) {
-          e.preventDefault();
-          console.log("clicked an answer");
-      });
+    if (event.target.matches("li")) {
+        console.log(event.target.textContent);
+       if (event.target.textContent === quizArr[0].answer) {
+           console.log("that's right!");
+       } ;
     }
-  };
 
-// Game over function
-function sendMessage() {
-    timerEl.textContent = "GAME OVER";
-    var initialsText = prompt("GAME OVER! Please enter your initials");
-    console.log(initialsText);
-}
+})
 
 
 
