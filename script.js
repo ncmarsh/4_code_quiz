@@ -1,5 +1,5 @@
 var timerEl = document.querySelector("#timer");
-var questionEl = document.querySelector("#quizSpace");
+var quizSpaceEl = document.querySelector("#quizSpace");
 var startEl = document.querySelector("#start");
 
 // Questions and answers array 
@@ -36,10 +36,13 @@ var quizArr = [
 
 ];
 
-// Timer countdown function
-var secondsLeft = 60;
+// Timer established
+var secondsLeft = 0;
+timerEl.textContent = secondsLeft + " seconds remaining";
 
+// Timer countdown function
 function setTime() {
+    var secondsLeft = 60;
     var timerInterval = setInterval(function() {
         secondsLeft--;
         timerEl.textContent = secondsLeft + " seconds remaining";
@@ -54,29 +57,30 @@ function setTime() {
 // Display first question 
 function displayQuestion (question) {
     console.log(question);
+    
     // Paragraph element for question display
     var quizPL = document.createElement("p");
 
-    // Ordered list for choice display
-    var choiceList = document.createElement("ol");
+    // Unordered list element for choice display
+    var choiceList = document.createElement("ul");
     var choiceAEl = document.createElement("li");
     var choiceBEl = document.createElement("li");
     var choiceCEl = document.createElement("li");
     var choiceDEl = document.createElement("li");
     
-    // Attached question text to quiz P element
+    // Add questionTitle text to quizPL p element
     quizPL.textContent=question.questionTitle;
 
-    // Attach choice text to list item element
+    // Add multipleChoice text to list item elements
     choiceAEl.textContent=question.multipleChoice[0];
     choiceBEl.textContent=question.multipleChoice[1];
     choiceCEl.textContent=question.multipleChoice[2];
     choiceDEl.textContent=question.multipleChoice[3];
     
-    // Append quiz P element to <div id="questions">
-    questionEl.appendChild(quizPL);
+    // Append quizPL p element to <div id="questions">
+    quizSpaceEl.appendChild(quizPL);
 
-    // Append answer list element to quiz P element
+    // Append multipleChoice list items element to quizPL p element
     quizPL.appendChild(choiceList);
     choiceList.appendChild(choiceAEl);
     choiceList.appendChild(choiceBEl);
@@ -86,8 +90,9 @@ function displayQuestion (question) {
 
 // When start button is clicked, timer countdown starts 
 startEl.addEventListener("click", function() {
-    displayQuestion(quizArr[0]);
     setTime();
+    quizSpaceEl.textContent = "";
+    displayQuestion(quizArr[0]);
 })
 
 // When answer is clicked, next question will be displayed 

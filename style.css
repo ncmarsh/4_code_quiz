@@ -7,4 +7,29 @@
 /* Container with questions and start button */
 main {
     text-align: center;
+    margin: auto;
+    width: 30%;
+}
+
+/* Instruction text size */
+#welcome {
+    font-size: 16px;
+}
+
+/* questionTitle element */
+p {
+    font-size: 30px;
+}
+
+/* multipleChoice list items */
+ul {
+    padding-inline-start: 0px;
+}
+
+li {
+    background-color: #0ED4F9; 
+    padding: 1rem;
+    margin-bottom: 2rem;
+    list-style-type: lower-alpha;
+    font-size: 16px;
 }

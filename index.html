@@ -14,14 +14,21 @@
         <!-- Timer to start when start button is hit -->
         <div id="timer"></div>
     </header>
+
     <!-- Initial welcome screen explaining the rules of the quiz  -->
-
-    <!-- Questions to answer -->
+    <!-- Followed by Questions to answer -->
     <main>
-        <div id="quizSpace"></div>
-
-        <!-- Start button to begin quiz -->
-        <button id="start">Start Quiz</button>
+        <div id="quizSpace">
+            <h2>Welcome to my Coding Quiz!</h2>
+            <p id="welcome">
+                You have 60 seconds to complete the quiz.
+                Incorrect answers take away 5 seconds of your time.
+                Record your score at the end. 
+                Highest amount of time remaining wins!
+            </p>
+            <!-- Start button to begin quiz -->
+            <button id="start">Start Quiz</button>
+        </div>
     </main>
 
     <!-- When the game is over, the player can save their initials and their score -- into the high scores chart -->
