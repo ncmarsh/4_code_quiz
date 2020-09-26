@@ -3,46 +3,37 @@ var questionsEl = document.querySelector("#questions");
 var startEl = document.querySelector("#start");
 
 // Questions and answers array 
-var quiz = [
+var quizArr = [
     // Question 1
-    { "questionOne": "What language establishes a web page?",
-      "answerOne": "CSS",
-      "answerTwo": "JavaScript",
-      "answerThree": "HTML",
-      "answerFour": "jQuery"
+    { questionTitle: "What language establishes a web page?",
+      multipleChoice: ["CSS", "JavaScript", "HTML", "jQuery"],  
+      answer: "HTML"
     },
 
     // Question 2
-    { "questionTwo": "What language styles a web page?",
-      "answerOne": "JavaScript",
-      "answerTwo": "CSS",
-      "answerThree": "HTML",
-      "answerFour": "localStorage"
+    { questionTitle: "What language styles a web page?",
+    multipleChoice: ["JavaScript", "CSS", "HTML", "localStorage"],  
+    answer: "CSS"
     },
 
     // Question 3
-    { "questionThree": "What language makes a web page interactive?",
-      "answerOne": "HTML",
-      "answerTwo": "CSS",
-      "answerThree": "JavaScript",
-      "answerFour": "SQL"
+    { questionTitle: "What language makes a web page interactive?",
+    multipleChoice: ["HTML", "CSS", "JavaScript", "SQL"],  
+    answer: "JavaScript"
     },
 
     // Question 4
-    { "questionFour": "What is considered an Event Listener?",
-      "answerOne": "Mouse click",
-      "answerTwo": "Scrolling",
-      "answerThree": "Key press",
-      "answerFour": "All of the above"
+    { questionTitle: "What is considered an Event Listener?",
+    multipleChoice: ["Mouse click", "Scrolling", "Key press", "All of the above"],  
+    answer: "All of the above"
     },
 
     // Question 5
-    { "questionFive": "How long did it take to invent JavaScript?",
-      "answerOne": "2 years",
-      "answerTwo": "10 days",
-      "answerThree": "10 years",
-      "answerFour": "6 months"
+    { questionTitle: "How long did it take to invent JavaScript?",
+    multipleChoice: ["2 years", "10 days", "10 years", "6 months"],  
+    answer: "10 days"
     },
+
 ];
 
 // Timer countdown function
@@ -61,29 +52,34 @@ function setTime() {
 }
 
 // Display first question 
-function displayFirst () {
-    console.log(quiz[0]);
-    var answerALiEl = document.createElement("li");
-    var answerBLiEl = document.createElement("li");
-    var answerCLiEl = document.createElement("li");
-    var answerDLiEl = document.createElement("li");
-    var answerOl = document.createElement("ol");
+function displayQuestion (question) {
+    console.log(question);
+    
+    var questionPL = document.createElement("p");
 
-    answerALiEl.setAttribute("class", "answer");
-    answerBLiEl.setAttribute("class", "answer");
-    answerCLiEl.setAttribute("class", "answer");
-    answerDLiEl.setAttribute("class", "answer");
+    // var answerALiEl = document.createElement("li");
+    // var answerBLiEl = document.createElement("li");
+    // var answerCLiEl = document.createElement("li");
+    // var answerDLiEl = document.createElement("li");
+    // var answerOl = document.createElement("ol");
 
-    answerOl.appendChild(answerALiEl);
-    answerOl.appendChild(answerBLiEl);
-    answerOl.appendChild(answerCLiEl);
-    answerOl.appendChild(answerDLiEl);
-    questionsEl.appendChild(answerOl);
+    questionPL.textContent=question.questionTitle;
+
+    // answerALiEl.setAttribute("class", "answer");
+    // answerBLiEl.setAttribute("class", "answer");
+    // answerCLiEl.setAttribute("class", "answer");
+    // answerDLiEl.setAttribute("class", "answer");
+
+    // answerOl.appendChild(answerALiEl);
+    // answerOl.appendChild(answerBLiEl);
+    // answerOl.appendChild(answerCLiEl);
+    // answerOl.appendChild(answerDLiEl);
+    questionsEl.appendChild(questionPL);
 }
 
 // When start button is clicked, timer countdown starts 
 startEl.addEventListener("click", function() {
-    displayFirst();
+    displayQuestion(quizArr[0]);
     setTime();
 })
 
@@ -113,6 +109,8 @@ function sendMessage() {
 
 // Cards need to shuffle through as questions are answered
 // Indicates after question answered about whether it was correct or wrong
-// time needs to subtract if a question is wrong ()=== false?)
-// Need score calculator -- is score time remaining? questions answered? points?
+// If a question is wrong, time is subtracted from the clock
+  // time needs to subtract if a question is wrong ()=== false?)
+// When all questions are answered or timer reaches 0, the game is over
 // Need input at the end for initials
+// Need score calculator -- is score time remaining? questions answered? points?

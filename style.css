@@ -3,3 +3,8 @@
     font-size: 12px;
     text-align: right;
 }
+
+/* Container with questions and start button */
+main {
+    text-align: center;
+}
