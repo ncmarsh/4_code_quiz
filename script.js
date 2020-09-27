@@ -2,6 +2,7 @@ var timerEl = document.querySelector("#timer");
 var quizSpaceEl = document.querySelector("#quizSpace");
 var startEl = document.querySelector("#start");
 var initialsFormEl = document.querySelector("#initials-form");
+var submitEl = document.querySelector("#submit");
 
 // Counter to keep track of questions within quizArr
 var questionCounter = 0;
@@ -41,12 +42,11 @@ var quizArr = [
 ];
 
 // Timer established on screen
-var secondsLeft = 5;
+var secondsLeft = 30;
 timerEl.textContent = secondsLeft + " seconds remaining";
 
 // Timer countdown function
 function setTime() {
-    // var secondsLeft = 5;
     var timerInterval = setInterval(function() {
         secondsLeft--;
         timerEl.textContent = secondsLeft + " seconds remaining";
@@ -60,8 +60,7 @@ function setTime() {
 
 // Display questions one at a time 
 function displayQuestion (question) {
-    console.log(question);
-    
+
     // Paragraph element for question display
     var quizPL = document.createElement("p");
 
@@ -96,7 +95,7 @@ function displayQuestion (question) {
 function sendMessage() {
     quizSpaceEl.classList.add("game-over");
     quizSpaceEl.textContent = "GAME OVER";
-    // shows initials form to record score
+    // Shows initials form to record score
     initialsFormEl.style.display = "block";
 }
 
@@ -107,25 +106,35 @@ startEl.addEventListener("click", function() {
     displayQuestion(quizArr[questionCounter]);
 })
 
-// When answer is clicked, next question will be displayed, else the timer decrements 5 seconds
+// When answer is clicked, next question will be displayed, 
 document.addEventListener("click", function(event){
     var answerEl = quizArr[questionCounter].answer;
 
     if (event.target.matches("li")) {
-        console.log(event.target.textContent);
        if (event.target.textContent === answerEl) {
             quizSpaceEl.textContent = "";
             questionCounter++;
             displayQuestion(quizArr[questionCounter]);
-       } 
+       } else {
+        // If the answer is wrong, 5 seconds is subtracted from the clock
+           secondsLeft = secondsLeft - 5;
+       }
     }
 })
+
+// When submit is pressed, initials is stored and it takes you to the high scores page
+// submitEl.addEventListener("submit", function(event) {
+//     event.preventDefault();
+    
+//     if (event.target.matches("button")) {
+//         submitEl.setAttribute("src", "high_scores.html");
+//     }  
+// })
 
 
 
 // Indicates after question answered about whether it was correct or wrong
-// If a question is wrong, time is subtracted from the clock
-  // time needs to subtract if a question is wrong ()=== false?)
+// If questions run out, needs to go to game over screen
 // When all questions are answered or timer reaches 0, the game is over
-// Need input at the end for initials
 // Need score calculator -- is score time remaining? questions answered? points?
+// Need to store the score + initials input to the high scores page
