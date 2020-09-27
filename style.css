@@ -47,3 +47,7 @@ li {
     text-align: center;
     display: none;
 }
+
+#error {
+    text-align: center;
+}

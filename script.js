@@ -1,8 +1,10 @@
 var timerEl = document.querySelector("#timer");
 var quizSpaceEl = document.querySelector("#quizSpace");
 var startEl = document.querySelector("#start");
+var submitBtnEl = document.querySelector("#submit");
 var initialsFormEl = document.querySelector("#initials-form");
-var submitEl = document.querySelector("#submit");
+var initialsTextEl = document.querySelector("#initials-text");
+var errorDivEl = document.querySelector("#error");
 
 // Counter to keep track of questions within quizArr
 var questionCounter = 0;
@@ -108,11 +110,10 @@ startEl.addEventListener("click", function() {
 
 // When answer is clicked, next question will be displayed, 
 document.addEventListener("click", function(event){
-    var answerEl = quizArr[questionCounter].answer;
         // If you select a list item
         if (event.target.matches("li")) {
             // If you select the list item that is the answer
-            if (event.target.textContent === answerEl) {
+            if (event.target.textContent === quizArr[questionCounter].answer) {
                 // quizSpaceEl will clear
                 quizSpaceEl.textContent = "";
                 // Adds one to the questionCounter
@@ -132,18 +133,52 @@ document.addEventListener("click", function(event){
 })
 
 // When submit is pressed, initials is stored and it takes you to the high scores page
-// submitEl.addEventListener("submit", function(event) {
-//     event.preventDefault();
-    
-//     if (event.target.matches("button")) {
-//         submitEl.setAttribute("src", "high_scores.html");
-//     }  
-// })
+function submitScore() {
+    var initials = localStorage.getItem("initialsStorage");
 
+    if (initialsStorage === "") {
+        return;
+    }
+
+
+}
+
+// Confirms if initials were input or not
+function displayMessage (type, message) {
+    errorDivEl.textContent = message;
+    errorDivEl.setAttribute("class", type);
+}
+
+submitBtnEl.addEventListener("click", function(event) {
+    event.preventDefault();
+
+    // create score object from time remaining and initials input
+    var scoreStore = {
+        // score: timeRemaining.value.trim(),
+        initials: initialsTextEl.value.trim()
+    }
+
+    // Tells user to input initials to high score if left blank
+    if (scoreStore.initials === "") {
+        displayMessage("error", "Please enter initials to record your score.");
+    } else {
+        displayMessage("success", "Score has been stored!")
+    }
+
+    // Record initials input to localStorage
+    var scoreStoreStr = JSON.stringify(scoreStore);
+    console.log("score storage", scoreStoreStr);
+    localStorage.setItem("score record", scoreStoreStr);
+
+
+})
+
+// initialsTextEl
 
 
 // Indicates after question answered about whether it was correct or wrong
-// If questions run out, needs to go to game over screen
-// When all questions are answered or timer reaches 0, the game is over
+// Timer needs to stop at 0
 // Need score calculator -- is score time remaining? questions answered? points?
 // Need to store the score + initials input to the high scores page
+
+// High scores page has a go back button to the index.html and a clear high scores button
