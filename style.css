@@ -55,6 +55,7 @@ li {
 
 /* High scores list items */
 #high-scores-list li {
+    text-align: center;
     list-style-type: decimal;
     background-color: #228B22;
 }

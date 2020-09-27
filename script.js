@@ -5,6 +5,9 @@ var submitBtnEl = document.querySelector("#submit");
 var initialsFormEl = document.querySelector("#initials-form");
 var initialsTextEl = document.querySelector("#initials-text");
 var errorDivEl = document.querySelector("#error");
+var highScoresListEl = document.querySelector("#high-scores-list");
+var initialsItemSpan = document.querySelector(".initials");
+var scoreItemSpan = document.querySelector(".score");
 
 // Counter to keep track of questions within quizArr
 var questionCounter = 0;
@@ -45,7 +48,7 @@ var quizArr = [
 
 // Timer established on screen
 var secondsLeft = 30;
-if(timerEl) {
+if (timerEl) {
     timerEl.textContent = secondsLeft + " seconds remaining";
 }
 
@@ -55,7 +58,7 @@ function setTime() {
         secondsLeft--;
         timerEl.textContent = secondsLeft + " seconds remaining";
 
-        if (secondsLeft === 0 || questionCounter === quizArr.length) {
+        if (secondsLeft <= 0 || questionCounter === quizArr.length) {
             clearInterval(timerInterval);
             gameOverMsg();
         }
@@ -143,7 +146,7 @@ function displayMessage (type, message) {
 }
 
 // When submit is pressed, initials is stored
-if(submitBtnEl) {
+if (submitBtnEl) {
     submitBtnEl.addEventListener("click", function(event) {
         event.preventDefault();
 
@@ -160,17 +163,16 @@ if(submitBtnEl) {
             location.href = "high_scores.html";
         }
 
-        // Record initials input to localStorage
+        // Set initials and score to localStorage
         var scoreStoreStr = JSON.stringify(scoreStore);
         console.log("score storage", scoreStoreStr);
         localStorage.setItem("score record", scoreStoreStr);
     })
 }
 
-
-// Indicates after question answered about whether it was correct or wrong
-// Timer needs to stop at 0
-// Need score calculator -- is score time remaining? questions answered? points?
-// Need to store the score + initials input to the high scores page
-
-// High scores page has a go back button to the index.html and a clear high scores button
+// Retrieve scores from local storage on high scores page
+if (highScoresListEl) {
+    var retrScores = JSON.parse(localStorage.getItem("score record"));
+    initialsItemSpan.textContent = retrScores.initials;
+    scoreItemSpan.textContent = retrScores.score;
+}
