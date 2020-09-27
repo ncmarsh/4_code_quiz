@@ -109,17 +109,26 @@ startEl.addEventListener("click", function() {
 // When answer is clicked, next question will be displayed, 
 document.addEventListener("click", function(event){
     var answerEl = quizArr[questionCounter].answer;
-
-    if (event.target.matches("li")) {
-       if (event.target.textContent === answerEl) {
-            quizSpaceEl.textContent = "";
-            questionCounter++;
-            displayQuestion(quizArr[questionCounter]);
-       } else {
-        // If the answer is wrong, 5 seconds is subtracted from the clock
-           secondsLeft = secondsLeft - 5;
-       }
-    }
+        // If you select a list item
+        if (event.target.matches("li")) {
+            // If you select the list item that is the answer
+            if (event.target.textContent === answerEl) {
+                // quizSpaceEl will clear
+                quizSpaceEl.textContent = "";
+                // Adds one to the questionCounter
+                questionCounter++;
+                // If the questionCounter is still less than the length of the quizArr, then display the next question
+                if (questionCounter < quizArr.length) {
+                    displayQuestion(quizArr[questionCounter]);
+                    // Otherwise, end the game
+                } else {
+                    sendMessage();
+                }
+            } else {
+            // If the answer is wrong, 5 seconds is subtracted from the clock
+            secondsLeft = secondsLeft - 5;
+            }
+        }
 })
 
 // When submit is pressed, initials is stored and it takes you to the high scores page
