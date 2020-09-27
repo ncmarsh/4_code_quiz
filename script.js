@@ -45,7 +45,9 @@ var quizArr = [
 
 // Timer established on screen
 var secondsLeft = 30;
-timerEl.textContent = secondsLeft + " seconds remaining";
+if(timerEl) {
+    timerEl.textContent = secondsLeft + " seconds remaining";
+}
 
 // Timer countdown function
 function setTime() {
@@ -102,11 +104,13 @@ function gameOverMsg() {
 }
 
 // When start button is clicked, timer countdown starts, first question is displayed
-startEl.addEventListener("click", function() {
-    setTime();
-    quizSpaceEl.textContent = "";
-    displayQuestion(quizArr[questionCounter]);
-})
+if (startEl) {
+    startEl.addEventListener("click", function() {
+        setTime();
+        quizSpaceEl.textContent = "";
+        displayQuestion(quizArr[questionCounter]);
+    })
+}
 
 // When answer is clicked, next question will be displayed, 
 document.addEventListener("click", function(event){
@@ -139,30 +143,30 @@ function displayMessage (type, message) {
 }
 
 // When submit is pressed, initials is stored
-submitBtnEl.addEventListener("click", function(event) {
-    event.preventDefault();
+if(submitBtnEl) {
+    submitBtnEl.addEventListener("click", function(event) {
+        event.preventDefault();
 
-    // create score object from time remaining and initials input
-    var scoreStore = {
-        score: secondsLeft,
-        initials: initialsTextEl.value.trim()
-    }
+        // create score object from time remaining and initials input
+        var scoreStore = {
+            score: secondsLeft,
+            initials: initialsTextEl.value.trim()
+        }
 
-    // Tells user to input initials to high score if left blank
-    if (scoreStore.initials === "") {
-        displayMessage("error", "Please enter initials to record your score.");
-    } else {
-        displayMessage("success", "Score has been stored!")
-    }
+        // Tells user to input initials to high score if left blank
+        if (scoreStore.initials === "") {
+            displayMessage("error", "Please enter initials to record your score.");
+        } else {
+            location.href = "high_scores.html";
+        }
 
-    // Record initials input to localStorage
-    var scoreStoreStr = JSON.stringify(scoreStore);
-    console.log("score storage", scoreStoreStr);
-    localStorage.setItem("score record", scoreStoreStr);
-})
+        // Record initials input to localStorage
+        var scoreStoreStr = JSON.stringify(scoreStore);
+        console.log("score storage", scoreStoreStr);
+        localStorage.setItem("score record", scoreStoreStr);
+    })
+}
 
-// initialsTextEl
-// and it takes you to the high scores page
 
 // Indicates after question answered about whether it was correct or wrong
 // Timer needs to stop at 0

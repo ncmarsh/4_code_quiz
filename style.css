@@ -48,6 +48,13 @@ li {
     display: none;
 }
 
+/* Message if user does not input initials */
 #error {
     text-align: center;
+}
+
+/* High scores list items */
+#high-scores-list li {
+    list-style-type: decimal;
+    background-color: #228B22;
 }
