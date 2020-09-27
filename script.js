@@ -53,9 +53,9 @@ function setTime() {
         secondsLeft--;
         timerEl.textContent = secondsLeft + " seconds remaining";
 
-        if (secondsLeft === 0) {
+        if (secondsLeft === 0 || questionCounter === quizArr.length) {
             clearInterval(timerInterval);
-            sendMessage();
+            gameOverMsg();
         }
     }, 1000);
 }
@@ -94,14 +94,14 @@ function displayQuestion (question) {
 }
 
 // Game over function when time runs out 
-function sendMessage() {
+function gameOverMsg() {
     quizSpaceEl.classList.add("game-over");
     quizSpaceEl.textContent = "GAME OVER";
     // Shows initials form to record score
     initialsFormEl.style.display = "block";
 }
 
-// When start button is clicked, timer countdown starts, questions are displayed one at a time
+// When start button is clicked, timer countdown starts, first question is displayed
 startEl.addEventListener("click", function() {
     setTime();
     quizSpaceEl.textContent = "";
@@ -110,38 +110,27 @@ startEl.addEventListener("click", function() {
 
 // When answer is clicked, next question will be displayed, 
 document.addEventListener("click", function(event){
-        // If you select a list item
-        if (event.target.matches("li")) {
-            // If you select the list item that is the answer
-            if (event.target.textContent === quizArr[questionCounter].answer) {
-                // quizSpaceEl will clear
-                quizSpaceEl.textContent = "";
-                // Adds one to the questionCounter
-                questionCounter++;
-                // If the questionCounter is still less than the length of the quizArr, then display the next question
-                if (questionCounter < quizArr.length) {
-                    displayQuestion(quizArr[questionCounter]);
-                    // Otherwise, end the game
-                } else {
-                    sendMessage();
-                }
+    // If you select a list item
+    if (event.target.matches("li")) {
+        // If you select the list item that is the answer
+        if (event.target.textContent === quizArr[questionCounter].answer) {
+            // quizSpaceEl will clear
+            quizSpaceEl.textContent = "";
+            // Adds one to the questionCounter
+            questionCounter++;
+            // If the questionCounter is still less than the length of the quizArr, then display the next question
+            if (questionCounter < quizArr.length) {
+                displayQuestion(quizArr[questionCounter]);
+                // Otherwise, end the game
             } else {
-            // If the answer is wrong, 5 seconds is subtracted from the clock
-            secondsLeft = secondsLeft - 5;
+                gameOverMsg();
             }
+        } else {
+        // If the answer is wrong, 5 seconds is subtracted from the clock
+        secondsLeft = secondsLeft - 5;
         }
-})
-
-// When submit is pressed, initials is stored and it takes you to the high scores page
-function submitScore() {
-    var initials = localStorage.getItem("initialsStorage");
-
-    if (initialsStorage === "") {
-        return;
     }
-
-
-}
+})
 
 // Confirms if initials were input or not
 function displayMessage (type, message) {
@@ -149,12 +138,13 @@ function displayMessage (type, message) {
     errorDivEl.setAttribute("class", type);
 }
 
+// When submit is pressed, initials is stored
 submitBtnEl.addEventListener("click", function(event) {
     event.preventDefault();
 
     // create score object from time remaining and initials input
     var scoreStore = {
-        // score: timeRemaining.value.trim(),
+        score: secondsLeft,
         initials: initialsTextEl.value.trim()
     }
 
@@ -169,12 +159,10 @@ submitBtnEl.addEventListener("click", function(event) {
     var scoreStoreStr = JSON.stringify(scoreStore);
     console.log("score storage", scoreStoreStr);
     localStorage.setItem("score record", scoreStoreStr);
-
-
 })
 
 // initialsTextEl
-
+// and it takes you to the high scores page
 
 // Indicates after question answered about whether it was correct or wrong
 // Timer needs to stop at 0
