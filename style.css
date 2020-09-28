@@ -35,6 +35,12 @@ li {
     font-size: 16px;
 }
 
+li:hover {
+    border: 2px solid;
+    border-color: black;
+    cursor: pointer;
+}
+
 /* Shows if time has run out */
 .game-over {
     margin-top: 50px;

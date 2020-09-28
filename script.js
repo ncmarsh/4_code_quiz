@@ -107,7 +107,7 @@ function gameOverMsg() {
     initialsFormEl.style.display = "block";
 }
 
-// When start button is clicked, timer countdown starts, first question is displayed
+// If the start button is available, then when start button is clicked, timer countdown starts, first question is displayed
 if (startEl) {
     startEl.addEventListener("click", function() {
         setTime();
@@ -164,10 +164,10 @@ function scoreStorage() {
     // Set initials and score to localStorage
     var scoreStoreStr = JSON.stringify(scoreStoreArr);
     console.log("score storage", scoreStoreStr);
-    localStorage.setItem("score record", scoreStoreStr);
+    localStorage.setItem("record score", scoreStoreStr);
 }
 
-// When submit is pressed, initials is stored
+// If the submit button is available, then when submit is pressed, initials is stored
 if (submitBtnEl) {
     submitBtnEl.addEventListener("click", function(event) {
         event.preventDefault();
@@ -176,14 +176,16 @@ if (submitBtnEl) {
     })
 }
 
-// Retrieve scores from local storage on high scores page
+// If the high score list is available, then the scoreStoreArr is retrieved from local storage
 if (highScoresListEl) {
-    var retrScores = JSON.parse(localStorage.getItem("score record"));
+    // Take score and put in local storage, store as retrScores variable
+    var retrScores = JSON.parse(localStorage.getItem("record score"));
+
     initialsItemSpan.textContent = retrScores.initials;
     scoreItemSpan.textContent = retrScores.score;
 }
 
-// If reset high scores button is pressed, high score board is cleared
+// If the reset button is available, then when the reset high scores button is pressed, high score board is cleared
 if (resetBtnEl) {
     resetBtnEl.addEventListener("click", function(event) {
         event.preventDefault();
@@ -191,6 +193,7 @@ if (resetBtnEl) {
         initialsItemSpan.textContent = "";
         scoreItemSpan.textContent = "";
 
-        localStorage.clear();
+        // Clears specific item from local storage
+        localStorage.removeItem("record score");
     })
 }
