@@ -8,6 +8,7 @@ var errorDivEl = document.querySelector("#error");
 var highScoresListEl = document.querySelector("#high-scores-list");
 var initialsItemSpan = document.querySelector(".initials");
 var scoreItemSpan = document.querySelector(".score");
+var resetBtnEl = document.querySelector("#resetBtn");
 
 // Counter to keep track of questions within quizArr
 var questionCounter = 0;
@@ -175,4 +176,16 @@ if (highScoresListEl) {
     var retrScores = JSON.parse(localStorage.getItem("score record"));
     initialsItemSpan.textContent = retrScores.initials;
     scoreItemSpan.textContent = retrScores.score;
+}
+
+// If reset high scores button is pressed, high score board is cleared
+if (resetBtnEl) {
+    resetBtnEl.addEventListener("click", function(event) {
+        event.preventDefault();
+
+        initialsItemSpan.textContent = "";
+        scoreItemSpan.textContent = "";
+
+        localStorage.clear();
+    })
 }
