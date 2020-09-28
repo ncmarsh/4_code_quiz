@@ -67,7 +67,7 @@ function setTime() {
 }
 
 // Display questions one at a time 
-function displayQuestion (question) {
+function displayQuestion(question) {
 
     // Paragraph element for question display
     var quizPL = document.createElement("p");
@@ -141,9 +141,30 @@ document.addEventListener("click", function(event){
 })
 
 // Confirms if initials were input or not
-function displayMessage (type, message) {
+function displayMessage(type, message) {
     errorDivEl.textContent = message;
     errorDivEl.setAttribute("class", type);
+}
+
+// Store initials input and score into local storage
+function scoreStorage() {
+    // Creates score object array with time remaining and initials input
+    var scoreStoreArr = {
+        score: secondsLeft,
+        initials: initialsTextEl.value.trim()
+    }
+
+    // Tells user to input initials to high score if left blank
+    if (scoreStoreArr.initials === "") {
+        displayMessage("error", "Please enter initials to record your score.");
+    } else {
+        location.href = "high_scores.html";
+    }
+
+    // Set initials and score to localStorage
+    var scoreStoreStr = JSON.stringify(scoreStoreArr);
+    console.log("score storage", scoreStoreStr);
+    localStorage.setItem("score record", scoreStoreStr);
 }
 
 // When submit is pressed, initials is stored
@@ -151,23 +172,7 @@ if (submitBtnEl) {
     submitBtnEl.addEventListener("click", function(event) {
         event.preventDefault();
 
-        // create score object from time remaining and initials input
-        var scoreStore = {
-            score: secondsLeft,
-            initials: initialsTextEl.value.trim()
-        }
-
-        // Tells user to input initials to high score if left blank
-        if (scoreStore.initials === "") {
-            displayMessage("error", "Please enter initials to record your score.");
-        } else {
-            location.href = "high_scores.html";
-        }
-
-        // Set initials and score to localStorage
-        var scoreStoreStr = JSON.stringify(scoreStore);
-        console.log("score storage", scoreStoreStr);
-        localStorage.setItem("score record", scoreStoreStr);
+        scoreStorage();
     })
 }
 
