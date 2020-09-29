@@ -178,7 +178,7 @@ if (highScoresListEl) {
     console.log(retrScores);
 
     // If scores are available, they will be sorted by highest to lowest
-    if (retrScores) {
+    if (retrScores !== null) {
         retrScores.sort(
             function (a,b) {
                 return b.score - a.score;
