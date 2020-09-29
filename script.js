@@ -6,8 +6,7 @@ var initialsFormEl = document.querySelector("#initials-form");
 var initialsTextEl = document.querySelector("#initials-text");
 var errorDivEl = document.querySelector("#error");
 var highScoresListEl = document.querySelector("#high-scores-list");
-var initialsItemSpan = document.querySelector(".initials");
-var scoreItemSpan = document.querySelector(".score");
+var returnHomeBtnEl = document.querySelector("#returnHome");
 var resetBtnEl = document.querySelector("#resetBtn");
 
 // Counter to keep track of questions within quizArr
@@ -146,25 +145,21 @@ function displayMessage(type, message) {
     errorDivEl.setAttribute("class", type);
 }
 
+// Creates score object array with time remaining and initials input
+// If empty, it creates a new one, if exisiting, it adds to it
+var scoreStoreArr = JSON.parse(localStorage.getItem("recordScore")) || [];
+
 // Store initials input and score into local storage
 function scoreStorage() {
-    // Creates score object array with time remaining and initials input
-    var scoreStoreArr = {
-        score: secondsLeft,
-        initials: initialsTextEl.value.trim()
-    }
-
     // Tells user to input initials to high score if left blank
-    if (scoreStoreArr.initials === "") {
+    // Otherwise, it will change html pages, and store the inputs as an object in an array and then into local storage
+    if (initialsTextEl.value === "") {
         displayMessage("error", "Please enter initials to record your score.");
     } else {
         location.href = "high_scores.html";
+        scoreStoreArr.push({initials: initialsTextEl.value, score: secondsLeft});
+        localStorage.setItem("recordScore", JSON.stringify(scoreStoreArr));
     }
-
-    // Set initials and score to localStorage
-    var scoreStoreStr = JSON.stringify(scoreStoreArr);
-    console.log("score storage", scoreStoreStr);
-    localStorage.setItem("record score", scoreStoreStr);
 }
 
 // If the submit button is available, then when submit is pressed, initials is stored
@@ -178,11 +173,31 @@ if (submitBtnEl) {
 
 // If the high score list is available, then the scoreStoreArr is retrieved from local storage
 if (highScoresListEl) {
-    // Take score and put in local storage, store as retrScores variable
-    var retrScores = JSON.parse(localStorage.getItem("record score"));
+    // Take scores from local storage, store as retrScores variable
+    var retrScores = JSON.parse(localStorage.getItem("recordScore"));
+    console.log(retrScores);
 
-    initialsItemSpan.textContent = retrScores.initials;
-    scoreItemSpan.textContent = retrScores.score;
+    // Will sort scores to filter highest to lowest
+    retrScores.sort(
+        function (a,b) {
+            return b.score - a.score;
+        }
+    )
+
+    // Takes each object and creates list items of the scores
+    for (var i = 0; i < retrScores.length; i++) {
+        var scoreLi = document.createElement("li");
+        highScoresListEl.appendChild(scoreLi);
+        scoreLi.textContent = retrScores[i].initials + "-" + retrScores[i].score;
+    }
+
+}
+
+// If the return to quiz button is available, then when the return to quiz button is pressed, it will redirect to the main quiz page
+if (returnHomeBtnEl) {
+    returnHomeBtnEl.addEventListener("click", function() {
+        location.href = "index.html";
+    })
 }
 
 // If the reset button is available, then when the reset high scores button is pressed, high score board is cleared
@@ -190,10 +205,10 @@ if (resetBtnEl) {
     resetBtnEl.addEventListener("click", function(event) {
         event.preventDefault();
 
-        initialsItemSpan.textContent = "";
-        scoreItemSpan.textContent = "";
+        // Clears high scores list
+        highScoresListEl.textContent = "";
 
         // Clears specific item from local storage
-        localStorage.removeItem("record score");
+        localStorage.removeItem("recordScore");
     })
 }
