@@ -1,6 +1,6 @@
 # Code Quiz
 
-![W3C Validation](https://img.shields.io/w3c-validation/html?targetUrl=https%3A%2F%2Fncmarsh.github.io%2F4_code_quiz%2Fhigh_scores.html)
+![W3C Validation](https://img.shields.io/w3c-validation/html?targetUrl=https%3A%2F%2Fncmarsh.github.io%2F4_code_quiz%2F)
 ![GitHub top language](https://img.shields.io/github/languages/top/ncmarsh/4_code_quiz)
 ![GitHub language count](https://img.shields.io/github/languages/count/ncmarsh/4_code_quiz)
 
