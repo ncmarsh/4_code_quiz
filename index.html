@@ -21,7 +21,7 @@
         <div id="quizSpace">
             <h2>Welcome to my Coding Quiz!</h2>
             <p id="welcome">
-                You have 60 seconds to complete the quiz.
+                You have 30 seconds to complete the quiz.
                 Correct answers will take you to the next question.
                 Incorrect answers take away 5 seconds of your time.
                 Record your score at the end. 
@@ -32,13 +32,14 @@
         </div>
     </main>
 
-    <!-- When the game is over, the player can save their initials and their score -- into the high scores chart -->
+    <!-- When the game is over, the player can save their initials and their score into the high scores chart -->
     <form>
         <div id="initials-form">
             <label for="initials-text">Enter Initials to record score:</label>
             <input type="text" placeholder="Initials" name="initials-text" id="initials-text">
             <button id="submit">Submit</button>
         </div>
+        <!-- Message if initials aren't entered -->
         <div id="error"></div>
     </form>
 
