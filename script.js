@@ -177,20 +177,21 @@ if (highScoresListEl) {
     var retrScores = JSON.parse(localStorage.getItem("recordScore"));
     console.log(retrScores);
 
-    // Will sort scores to filter highest to lowest
-    retrScores.sort(
-        function (a,b) {
-            return b.score - a.score;
+    // If scores are available, they will be sorted by highest to lowest
+    if (retrScores) {
+        retrScores.sort(
+            function (a,b) {
+                return b.score - a.score;
+            }
+        )
+
+        // Takes each object and creates list items of the scores
+        for (var i = 0; i < retrScores.length; i++) {
+            var scoreLi = document.createElement("li");
+            highScoresListEl.appendChild(scoreLi);
+            scoreLi.textContent = retrScores[i].initials + "-" + retrScores[i].score;
         }
-    )
-
-    // Takes each object and creates list items of the scores
-    for (var i = 0; i < retrScores.length; i++) {
-        var scoreLi = document.createElement("li");
-        highScoresListEl.appendChild(scoreLi);
-        scoreLi.textContent = retrScores[i].initials + "-" + retrScores[i].score;
     }
-
 }
 
 // If the return to quiz button is available, then when the return to quiz button is pressed, it will redirect to the main quiz page
