@@ -19,7 +19,7 @@ Test your knowledge of coding languages! Can you beat the clock?
 
 ## Usage
 
-
+Practice your knowledge of coding languages, concepts and history to help strengthen your understanding.
 
 ## Languages and Concepts
 
@@ -30,12 +30,11 @@ Test your knowledge of coding languages! Can you beat the clock?
 
 ## Method
 
-
+So many things.
 
 ## Demo
 
-
-
+Fancy gif.
 
 ## Roadmap
 
