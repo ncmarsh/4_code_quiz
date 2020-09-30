@@ -68,34 +68,24 @@ function setTime() {
 // Display questions one at a time 
 function displayQuestion(question) {
 
-    // Paragraph element for question display
+    // Create paragraph element for question display
     var quizPL = document.createElement("p");
-
-    // Unordered list element for choice display
+    // Unordered list element for multiple choice display
     var choiceList = document.createElement("ul");
-    var choiceAEl = document.createElement("li");
-    var choiceBEl = document.createElement("li");
-    var choiceCEl = document.createElement("li");
-    var choiceDEl = document.createElement("li");
-    
+
     // Add questionTitle text to quizPL p element
     quizPL.textContent=question.questionTitle;
-
-    // Add multipleChoice text to list item elements
-    choiceAEl.textContent=question.multipleChoice[0];
-    choiceBEl.textContent=question.multipleChoice[1];
-    choiceCEl.textContent=question.multipleChoice[2];
-    choiceDEl.textContent=question.multipleChoice[3];
-    
-    // Append quizPL p element to <div id="questions"> element
+    // Append quizPL p element to quizSpace element
     quizSpaceEl.appendChild(quizPL);
-
     // Append multipleChoice list items element to quizPL p element
     quizPL.appendChild(choiceList);
-    choiceList.appendChild(choiceAEl);
-    choiceList.appendChild(choiceBEl);
-    choiceList.appendChild(choiceCEl);
-    choiceList.appendChild(choiceDEl);
+
+    // Add multipleChoice list items, add text from multipleChoice array, and append to choiceList unordered list element
+    for (var i = 0; i < 4; i++) {
+        var choiceEl = document.createElement("li");
+        choiceEl.textContent = question.multipleChoice[i];
+        choiceList.appendChild(choiceEl);
+    }
 }
 
 // Game over function when time runs out 
@@ -178,7 +168,13 @@ if (highScoresListEl) {
     console.log(retrScores);
 
     // If scores are available, they will be sorted by highest to lowest
-    if (retrScores !== null) {
+    if (retrScores === null) {
+        var takeQuiz = document.createElement("li");
+        highScoresListEl.appendChild(takeQuiz);
+        takeQuiz.textContent = "No scores on record. Take the quiz!"
+        takeQuiz.style.backgroundColor = "red";
+        console.log("null");
+    } else {
         retrScores.sort(
             function (a,b) {
                 return b.score - a.score;
@@ -189,7 +185,7 @@ if (highScoresListEl) {
         for (var i = 0; i < retrScores.length; i++) {
             var scoreLi = document.createElement("li");
             highScoresListEl.appendChild(scoreLi);
-            scoreLi.textContent = retrScores[i].initials + "-" + retrScores[i].score;
+            scoreLi.textContent = retrScores[i].initials + " - " + retrScores[i].score;
         }
     }
 }
