@@ -96,6 +96,63 @@ function gameOverMsg() {
     initialsFormEl.style.display = "block";
 }
 
+// Confirms if initials were input or not
+function displayMessage(type, message) {
+    errorDivEl.textContent = message;
+    errorDivEl.setAttribute("class", type);
+}
+
+// Creates score object array with time remaining and initials input
+// If empty, it creates a new one, if exisiting, it adds to it
+var scoreStoreArr = JSON.parse(localStorage.getItem("recordScore")) || [];
+
+// Store initials input and score into local storage
+function scoreStorage() {
+    // Tells user to input initials to high score if left blank
+    // Otherwise, it will change html pages, and store the inputs as an object in an array and then into local storage
+    if (initialsTextEl.value === "") {
+        displayMessage("error", "Please enter initials to record your score.");
+    } else {
+        location.href = "high_scores.html";
+        scoreStoreArr.push({initials: initialsTextEl.value, score: secondsLeft});
+        localStorage.setItem("recordScore", JSON.stringify(scoreStoreArr));
+    }
+}
+
+// Function to clear high scores list and replace with a take quiz message
+function takeQuiz() {
+    var takeQuiz = document.createElement("li");
+    highScoresListEl.appendChild(takeQuiz);
+    takeQuiz.textContent = "No scores on record. Take the quiz!"
+    takeQuiz.style.backgroundColor = "#FF0000";
+}
+
+// If the high score list is available, then the scoreStoreArr is retrieved from local storage
+if (highScoresListEl) {
+    // Take scores from local storage, store as retrScores variable
+    var retrScores = JSON.parse(localStorage.getItem("recordScore"));
+    console.log(retrScores);
+
+    // If scores are available, they will be sorted by highest to lowest
+    if (retrScores === null) {
+        takeQuiz();
+        // console.log("null");
+    } else {
+        retrScores.sort(
+            function (a,b) {
+                return b.score - a.score;
+            }
+        )
+
+        // Takes each object and creates list items of the scores
+        for (var i = 0; i < retrScores.length; i++) {
+            var scoreLi = document.createElement("li");
+            highScoresListEl.appendChild(scoreLi);
+            scoreLi.textContent = retrScores[i].initials + " - " + retrScores[i].score;
+        }
+    }
+}
+
 // If the start button is available, then when start button is clicked, timer countdown starts, first question is displayed
 if (startEl) {
     startEl.addEventListener("click", function() {
@@ -129,29 +186,6 @@ document.addEventListener("click", function(event){
     }
 })
 
-// Confirms if initials were input or not
-function displayMessage(type, message) {
-    errorDivEl.textContent = message;
-    errorDivEl.setAttribute("class", type);
-}
-
-// Creates score object array with time remaining and initials input
-// If empty, it creates a new one, if exisiting, it adds to it
-var scoreStoreArr = JSON.parse(localStorage.getItem("recordScore")) || [];
-
-// Store initials input and score into local storage
-function scoreStorage() {
-    // Tells user to input initials to high score if left blank
-    // Otherwise, it will change html pages, and store the inputs as an object in an array and then into local storage
-    if (initialsTextEl.value === "") {
-        displayMessage("error", "Please enter initials to record your score.");
-    } else {
-        location.href = "high_scores.html";
-        scoreStoreArr.push({initials: initialsTextEl.value, score: secondsLeft});
-        localStorage.setItem("recordScore", JSON.stringify(scoreStoreArr));
-    }
-}
-
 // If the submit button is available, then when submit is pressed, initials is stored
 if (submitBtnEl) {
     submitBtnEl.addEventListener("click", function(event) {
@@ -159,35 +193,6 @@ if (submitBtnEl) {
 
         scoreStorage();
     })
-}
-
-// If the high score list is available, then the scoreStoreArr is retrieved from local storage
-if (highScoresListEl) {
-    // Take scores from local storage, store as retrScores variable
-    var retrScores = JSON.parse(localStorage.getItem("recordScore"));
-    console.log(retrScores);
-
-    // If scores are available, they will be sorted by highest to lowest
-    if (retrScores === null) {
-        var takeQuiz = document.createElement("li");
-        highScoresListEl.appendChild(takeQuiz);
-        takeQuiz.textContent = "No scores on record. Take the quiz!"
-        takeQuiz.style.backgroundColor = "red";
-        console.log("null");
-    } else {
-        retrScores.sort(
-            function (a,b) {
-                return b.score - a.score;
-            }
-        )
-
-        // Takes each object and creates list items of the scores
-        for (var i = 0; i < retrScores.length; i++) {
-            var scoreLi = document.createElement("li");
-            highScoresListEl.appendChild(scoreLi);
-            scoreLi.textContent = retrScores[i].initials + " - " + retrScores[i].score;
-        }
-    }
 }
 
 // If the return to quiz button is available, then when the return to quiz button is pressed, it will redirect to the main quiz page
@@ -204,6 +209,7 @@ if (resetBtnEl) {
 
         // Clears high scores list
         highScoresListEl.textContent = "";
+        takeQuiz();
 
         // Clears specific item from local storage
         localStorage.removeItem("recordScore");
