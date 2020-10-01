@@ -29,6 +29,7 @@ Practice your knowledge of coding languages, concepts and history to help streng
 - CSS
 - JavaScript
 - localStorage
+- Bootstrap
 
 ## Method
 
@@ -51,7 +52,8 @@ With this being a larger project compared to what I've done in the past, I decid
 1. Now that I have a working quiz and a score on the board, I added functionality to the reset button so it would clear the board.
 1. So now the quiz is recording one score, but it needs to hold multiple. For this I reorganized the scoreStorage function: moved the array outside the function, then had the function push the initials/score objects into an array, adding to it each time. Then I added a for loop to take each object and create a list item and append it to the high scores list element. Next I added a sort function so it would sort the scores highest to lowest. I then turned the return to quiz link into a button.
 1. Now the quiz is finished...almost. I go through the quiz from different points looking for errors. I find that if the high scores page starts out empty, the return to quiz button isn't working. After a few tries, I was able to get it working.
-1. Lastly I made my multiple choice display into a for loop and fixed the clear high scores function to show the same when starting as null or being reset. To finish off, I reorganized my js file to have variables on top, then functions and eventListeners at the bottom.
+1. Lastly I made my multiple choice display into a for loop and fixed the clear high scores function to show the same when starting as null or being reset. I reorganized my js file to have variables on top, then functions and eventListeners at the bottom.
+1. And finally I added some styling using the Bootstrap CSS Framework.
 
 ## Demo
 
