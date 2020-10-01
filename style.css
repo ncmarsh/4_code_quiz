@@ -5,11 +5,15 @@
 }
 
 /* Center text for container with questions and start button and high scores page */
-main,
-h1 {
+main {
     text-align: center;
     margin: auto;
     width: 35%;
+}
+
+/* Lowers header from the top of the browser window */
+main h2 {
+    margin: 3rem 0rem 1rem 0rem;
 }
 
 /* Instruction text size */
@@ -20,6 +24,7 @@ h1 {
 /* questionTitle element */
 p {
     font-size: 30px;
+    margin-top: 2rem;
 }
 
 /* multipleChoice list items */
@@ -30,14 +35,14 @@ ul {
 li {
     background-color: #0ED4F9; 
     padding: 1rem;
-    margin-bottom: 2rem;
+    margin: 1rem 0rem 2rem 0rem;
     list-style-type: lower-alpha;
     font-size: 16px;
 }
 
 li:hover {
     border: 2px solid;
-    border-color: black;
+    border-color: #000000;
     cursor: pointer;
 }
 
@@ -57,11 +62,20 @@ li:hover {
 /* Message if user does not input initials */
 #error {
     text-align: center;
+    font-style: italic;
+}
+
+/* High scores list header */
+#high-scores-list {
+    padding: 10px;
 }
 
 /* High scores list items */
 #high-scores-list li {
     text-align: center;
+    color: #ffffff;
     list-style-type: decimal;
-    background-color: #228B22;
+    list-style-position: inside;
+    background-color: #3a8a3a;
+    width: 100%;
 }

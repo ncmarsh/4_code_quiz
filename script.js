@@ -75,6 +75,7 @@ function displayQuestion(question) {
 
     // Add questionTitle text to quizPL p element
     quizPL.textContent=question.questionTitle;
+    quizPL.classList.add("h4");
     // Append quizPL p element to quizSpace element
     quizSpaceEl.appendChild(quizPL);
     // Append multipleChoice list items element to quizPL p element
@@ -124,7 +125,7 @@ function takeQuiz() {
     var takeQuiz = document.createElement("li");
     highScoresListEl.appendChild(takeQuiz);
     takeQuiz.textContent = "No scores on record. Take the quiz!"
-    takeQuiz.style.backgroundColor = "#FF0000";
+    takeQuiz.style.backgroundColor = "#000000";
 }
 
 // If the high score list is available, then the scoreStoreArr is retrieved from local storage
