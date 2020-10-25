@@ -71,13 +71,13 @@ To advance this project, I would like to incorporate more questions of varying d
 
 ## Contact
 
-- Nicole Marshall [@ncmarsh](https://github.com/ncmarsh)
+- Nicole Marshall - [@ncmarsh](https://github.com/ncmarsh)
 
-### Contributing
+## Contributing
 
 This is a personal project; no contributions are required at this time.
 
-### License
+## License
 
 No license granted.
 
