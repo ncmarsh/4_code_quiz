@@ -16,6 +16,7 @@ Test your knowledge of coding languages! Can you beat the clock?
 1. [Demo](#Demo)
 1. [Roadmap](#Roadmap)
 1. [Links](#Links)
+1. [Contact](#Contact)
 1. [Contributing](#Contributing)
 1. [License](#License)
 
@@ -67,6 +68,10 @@ To advance this project, I would like to incorporate more questions of varying d
 
 - [Project Repository](https://github.com/ncmarsh/4_code_quiz) 
 - [Code Quiz](https://ncmarsh.github.io/4_code_quiz/)
+
+## Contact
+
+- Nicole Marshall [@ncmarsh](https://github.com/ncmarsh)
 
 ### Contributing
 
